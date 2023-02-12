@@ -1,0 +1,123 @@
+Q1. What is an exception in python?Write the difference between exception and syntax errors.
+Ans--> In Python, an exception is an abnormal event that occurs during the execution of a program. It is a runtime error that occurs when a piece of code encounters an unexpected condition that it can't handle. When an exception is raised, the normal flow of the program is disrupted and the program stops executing further unless the exception is handled.
+
+The main difference between an exception and a syntax error is that syntax errors are errors in the code itself, while exceptions are errors that occur during the execution of the code. Syntax errors are detected when the code is compiled, and they prevent the code from running because the code is written in an incorrect manner. On the other hand, exceptions are not detected until the code is actually executed, and they can be handled in the code to prevent the program from crashing.
+
+Q2. What happen when an exception is not handdeled? Explain with an example?
+Ans--> When an exception is not handled, the program will terminate abruptly and generate an error message known as a traceback. The traceback displays the sequence of function calls that led to the exception, along with information about the type of exception that was raised. This makes it easier for developers to understand where the problem occurred and what caused it.
+
+Here's an example of what can happen when an exception is not handled:
+
+def divide(a, b):
+  return a / b
+
+print(divide(10, 2))
+print(divide(10, 0))
+
+In this example, the divide function takes two arguments and returns the result of dividing the first argument by the second argument. When we call the function with 10 and 2, it returns 5, which is the expected result. But when we call the function with 10 and 0, it raises a ZeroDivisionError exception because dividing by zero is undefined.
+
+Q3. Which python statements are used to catch and handle exception? Explain with an example.
+Ans--> In Python, the try and except statements are used to catch and handle exceptions. The try block contains the code that might raise an exception, and the except block contains the code that will be executed if an exception is raised.
+
+Here's an example of using try and except to catch and handle an exception:
+
+try:
+  result = 10 / 0
+except ZeroDivisionError as e:
+  print("An error occurred:", e)
+
+In this example, we use the try block to divide 10 by 0, which will raise a ZeroDivisionError. The except block is used to catch this exception and print an error message indicating what went wrong. The ZeroDivisionError exception is assigned to the variable e, which we can use to access information about the exception if needed.
+
+The try and except statements can be used to handle multiple types of exceptions by including multiple except blocks with different exception types. For example:
+
+try:
+  result = 10 / 0
+except ZeroDivisionError as e:
+  print("An error occurred: Division by zero")
+except TypeError as e:
+  print("An error occurred: Invalid type")
+
+In this example, the first except block handles the ZeroDivisionError exception, and the second except block handles the TypeError exception. If a ZeroDivisionError is raised, the first except block will be executed and the error message "An error occurred: Division by zero" will be printed. If a TypeError is raised, the second except block will be executed and the error message "An error occurred: Invalid type" will be printed.
+
+It's also possible to include an optional else block after the except blocks that will be executed if no exceptions are raised in the try block. And finally, the finally block can be used to include code that will always be executed, regardless of whether an exception was raised or not.
+
+Q4. Explain with an example.
+a. try and else
+b. finally
+c. raise
+
+Ans--> try and else : "try" and "else" are control flow statements in Python. The "try" statement is used to test a block of code for errors and the "else" clause is executed if no exceptions are raised in the "try" block.
+
+Here's an example to demonstrate the use of "try" and "else":
+
+try:
+    # some code here
+    number = int(input("Enter a number: "))
+    print(10 / number)
+except ZeroDivisionError:
+    # code to handle the exception
+    print("Error: Cannot divide by zero.")
+else:
+    # code to run if no exception was raised
+    print("The result is", 10 / number)
+
+
+In this example, the user is prompted to enter a number. The program then tries to divide 10 by the number and print the result. If the user enters 0, a ZeroDivisionError will be raised and the code in the "except" block will be executed, printing an error message. If the user enters a non-zero number, the code in the "else" block will be executed and the result will be printed.
+
+finally : The finally clause is used in Python to specify a block of code that will be executed regardless of whether an exception was raised or not. It is used along with the try and except statements to guarantee that a certain section of code will always be executed, even if an exception occurs.
+
+Here's an example to demonstrate the use of finally:
+
+try:
+    # some code here
+    number = int(input("Enter a number: "))
+    print(10 / number)
+except ZeroDivisionError:
+    # code to handle the exception
+    print("Error: Cannot divide by zero.")
+finally:
+    # code to always run after the try and except blocks
+    print("The 'try' and 'except' blocks have completed.")
+
+In this example, the user is prompted to enter a number. The program then tries to divide 10 by the number and print the result. If the user enters 0, a ZeroDivisionError will be raised and the code in the except block will be executed, printing an error message. Regardless of whether an exception was raised or not, the code in the finally block will be executed and the message "The 'try' and 'except' blocks have completed" will be printed.
+
+c.raise : The raise statement is used in Python to raise an exception. It is used to indicate that an error has occurred and to immediately stop the execution of the current block of code.
+
+Here's an example to demonstrate the use of raise:
+
+def divide(a, b):
+    if b == 0:
+        raise ValueError("Cannot divide by zero.")
+    return a / b
+
+try:
+    result = divide(10, 0)
+    print(result)
+except ValueError as error:
+    print("Error:", error)
+
+In this example, the divide function takes two arguments, a and b, and returns the result of dividing a by b. If b is 0, a ValueError is raised with the message "Cannot divide by zero.". When the function is called with 10 and 0 as arguments, the raise statement is executed and the ValueError is raised. The try statement is then used to catch the exception and print an error message. The error message is constructed from the error message that was passed to the raise statement.
+
+Q5. What are custom exception in python? Why do we need custom exception? Explain with an example.
+Ans--> Custom exceptions are user-defined exceptions in Python. They are created by defining new classes that inherit from the built-in Exception class. Custom exceptions can be used to provide a more descriptive error message or to handle specific types of errors in a more controlled manner.
+
+The need for custom exceptions arises when the built-in exceptions are not specific enough or do not provide the necessary information to handle an error properly. By creating custom exceptions, you can raise exceptions with specific error messages and handle them in a way that is appropriate for your application.
+
+Here's an example to demonstrate the use of custom exceptions:
+
+class NegativeNumberException(Exception):
+    pass
+
+def square_root(number):
+    if number < 0:
+        raise NegativeNumberException("Cannot calculate the square root of a negative number.")
+    return number ** 0.5
+
+try:
+    result = square_root(-4)
+    print(result)
+except NegativeNumberException as error:
+    print("Error:", error)
+
+In this example, the NegativeNumberException is a custom exception class that is defined to handle the case where a negative number is passed to the square_root function. If the argument to the function is negative, the raise statement is executed and a NegativeNumberException is raised with the message "Cannot calculate the square root of a negative number.". The try statement is then used to catch the exception and print an error message.
+
